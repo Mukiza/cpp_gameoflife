@@ -1,4 +1,5 @@
 #include <igloo/igloo_alt.h>
+#include <list>
 #include "./../lib/cell.h"
 using namespace igloo;
 
@@ -40,4 +41,19 @@ Describe(A_Cell)
         Assert::That(cell.is_neighbour_to(cell), IsFalse());
     }
 
+    It(Knows_it_has_no_neighbours){
+        std::list<Cell> not_neighbours;
+        Cell cell(5, 5);
+        not_neighbours.push_back(cell);
+        Assert::That(cell.count_neighbours(not_neighbours), Equals(0));
+    }
+
+    It(Knows_it_has_neighbours){
+        std::list<Cell> neighbours;
+        neighbours.push_back(Cell(2, 3));
+        neighbours.push_back(Cell(3, 3));
+        neighbours.push_back(Cell(12, 3));
+        Cell cell(2,2);
+        Assert::That(cell.count_neighbours(neighbours), Equals(2));
+    }
 };
