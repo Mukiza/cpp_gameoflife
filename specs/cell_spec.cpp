@@ -1,7 +1,9 @@
 #include <igloo/igloo_alt.h>
 #include <list>
-#include "./../lib/cell.h"
+
 using namespace igloo;
+
+#include "./../lib/cell.h"
 
 Describe(A_Cell)
 {
@@ -56,4 +58,22 @@ Describe(A_Cell)
         Cell cell(2,2);
         Assert::That(cell.count_neighbours(neighbours), Equals(2));
     }
+
+    It(Knows_it_will_survive_in_the_environment){
+        std::list<Cell> neighbours;
+        neighbours.push_back(Cell(2, 3));
+        neighbours.push_back(Cell(3, 3));
+        neighbours.push_back(Cell(12, 3));
+        Cell cell(2,2);
+        Assert::That(cell.will_srvive_in(neighbours), IsTrue());
+    }
+
+    It(Knows_it_will_survive){
+        std::list<Cell> few_neighbours;
+        Cell cell(2, 2);
+        few_neighbours.push_back(cell);
+        Cell neighbour(2, 3);
+        Assert::That(neighbour.will_srvive_in(few_neighbours), IsFalse());
+    }
+
 };

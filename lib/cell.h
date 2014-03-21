@@ -36,6 +36,11 @@ class Cell{
         return x_diff <= 1 && y_diff <= 1  && *this != other;
     }
 
+    bool will_srvive_in(std::list<Cell>& cells) const
+    {
+        return count_neighbours(cells) >= 2;
+    }
+
     int count_neighbours(std::list<Cell>& cells) const
     {
         int count = 0;
