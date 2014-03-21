@@ -21,4 +21,9 @@ Describe(A_Cell)
         Cell neighbour(2, 12);
         Assert::That(cell.is_neighbour_to(neighbour), IsFalse());
     }
+
+    It(Does_not_consider_its_self_a_aneighbour){
+        Cell cell(4, 7);
+        Assert::That(cell.is_neighbour_to(cell), IsFalse());
+    }
 };
