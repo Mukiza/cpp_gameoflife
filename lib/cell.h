@@ -16,4 +16,9 @@ class Cell{
     {
         return y_;
     }
+
+    bool is_neighbour_to(const Cell& other) const
+    {
+        return abs(x_ - other.x_) <= 1 && abs(y_ - other.y_) <= 1;
+    }
 };
