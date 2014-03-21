@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <list>
+
 class Cell{
     int x_;
     int y_;
