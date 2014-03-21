@@ -19,10 +19,20 @@ class Cell{
         return y_;
     }
 
+    bool operator==(const Cell& other) const
+    {
+        return x_ == other.x_ && y_ == other.y_;
+    }
+
+    bool operator!=(const Cell& other) const
+    {
+        return !(*this == other);
+    }
+
     bool is_neighbour_to(const Cell& other) const
     {
         int x_diff = abs(x_ - other.x_);
         int y_diff = abs(y_ - other.y_);
-        return x_diff <= 1 && y_diff <= 1 && (x_diff != 0 && y_diff != 0);
+        return x_diff <= 1 && y_diff <= 1  && *this != other;
     }
 };
