@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <list>
+#include<iostream>
 
 class Cell{
     int x_;
@@ -37,9 +38,18 @@ class Cell{
         return x_diff <= 1 && y_diff <= 1  && *this != other;
     }
 
-    bool will_srvive_in(std::list<Cell>& cells) const
+    bool will_srvive_in(std::list<Cell> cells) const
     {
-        return count_neighbours(cells) >= 2;
+        int neighbour_count = count_neighbours(cells);
+        if(exists_in(cells)){
+            return neighbour_count >= 2 && neighbour_count < 4;
+        }
+        return neighbour_count == 3;
+    }
+
+    bool exists_in(std::list<Cell>& cells) const
+    {
+        return std::find(cells.begin(), cells.end(), *this) != cells.end();
     }
 
     int count_neighbours(std::list<Cell>& cells) const

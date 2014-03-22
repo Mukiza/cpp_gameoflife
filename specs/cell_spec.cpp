@@ -64,11 +64,12 @@ Describe(A_Cell)
         neighbours.push_back(Cell(2, 3));
         neighbours.push_back(Cell(3, 3));
         neighbours.push_back(Cell(12, 3));
+        neighbours.push_back(Cell(2, 1));
         Cell cell(2,2);
         Assert::That(cell.will_srvive_in(neighbours), IsTrue());
     }
 
-    It(Knows_it_will_survive){
+    It(Knows_it_will_not_survive){
         std::list<Cell> few_neighbours;
         Cell cell(2, 2);
         few_neighbours.push_back(cell);
@@ -76,4 +77,41 @@ Describe(A_Cell)
         Assert::That(neighbour.will_srvive_in(few_neighbours), IsFalse());
     }
 
+    It(Knows_it_will_not_survive_if_it_has_four_or_more_neighbours){
+        std::list<Cell> few_neighbours;
+        few_neighbours.push_back(Cell(0, 0));
+        few_neighbours.push_back(Cell(0, 1));
+        few_neighbours.push_back(Cell(1, 1));
+        few_neighbours.push_back(Cell(0, 2));
+        few_neighbours.push_back(Cell(1, 0));
+        Cell neighbour(0, 1);
+        Assert::That(neighbour.will_srvive_in(few_neighbours), IsFalse());
+    }
+
+    It(Knows_it_will_survive_if_it_has_three_neighbours){
+        std::list<Cell> few_neighbours;
+        few_neighbours.push_back(Cell(0, 0));
+        few_neighbours.push_back(Cell(0, 1));
+        few_neighbours.push_back(Cell(1, 1));
+        few_neighbours.push_back(Cell(0, 2));
+        Cell neighbour(0, 1);
+        Assert::That(neighbour.will_srvive_in(few_neighbours), IsTrue());
+    }
+
+    It(Will_not_spawn_if_it_has_two_neighbours){
+        std::list<Cell> few_neighbours;
+        few_neighbours.push_back(Cell(0, 0));
+        few_neighbours.push_back(Cell(0, 2));
+        Cell neighbour(0, 1);
+        Assert::That(neighbour.will_srvive_in(few_neighbours), IsFalse());
+    }
+
+    It(Will_spawn_if_it_has_three_neighbours){
+        std::list<Cell> few_neighbours;
+        few_neighbours.push_back(Cell(0, 0));
+        few_neighbours.push_back(Cell(0, 2));
+        few_neighbours.push_back(Cell(1, 0));
+        Cell neighbour(0, 1);
+        Assert::That(neighbour.will_srvive_in(few_neighbours), IsTrue());
+    }
 };
